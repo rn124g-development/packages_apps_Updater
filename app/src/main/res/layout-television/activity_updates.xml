@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
     android:id="@+id/main_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:fitsSystemWindows="true"
-    android:padding="16dp"
-    android:weightSum="2"
-    android:baselineAligned="false">
+    android:padding="16dp">
 
     <RelativeLayout
         android:id="@+id/header_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:paddingEnd="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:paddingStart="16dp"
-        android:layout_gravity="start">
+        android:paddingEnd="16dp">
 
         <LinearLayout
+            android:id="@+id/header_text_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -31,8 +31,8 @@
                 android:fontFamily="sans-serif-light"
                 android:paddingBottom="16dp"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="56sp"
-                tools:text="LineageOS\n20" />
+                android:textSize="48sp"
+                tools:text="Pixel Project\n20" />
 
             <TextView
                 android:id="@+id/header_build_version"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
-                tools:text="Android 13"/>
+                tools:text="Android 13" />
 
             <TextView
                 android:id="@+id/header_build_date"
@@ -48,65 +48,55 @@
                 android:layout_height="wrap_content"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="14sp"
-                tools:text="1970-01-01"/>
-
-            <TextView
-                android:id="@+id/header_last_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="14sp"
-                tools:text="Last checked: 1970-01-01"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:weightSum="2"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/refresh"
-                android:drawableStart="@drawable/ic_menu_refresh"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/menu_refresh"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
-
-            <Button
-                android:id="@+id/preferences"
-                android:drawableStart="@drawable/ic_menu_preferences"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/menu_preferences"
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
-
+                tools:text="1970-01-01" />
         </LinearLayout>
     </RelativeLayout>
 
+
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:id="@+id/updates_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:layout_gravity="end">
+        android:paddingEnd="16dp">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/no_new_updates_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:padding="46dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/list_no_updates"
-                android:textColor="?android:textColorSecondary" />
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <com.pixelproject.updater.RandomImageView
+                    android:id="@+id/no_updates_image"
+                    android:layout_width="350dp"
+                    android:layout_height="350dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/no_updates_1" />
+
+                <com.pixelproject.updater.RandomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/no_updates_text"
+                    android:textColor="?android:textColorSecondary" />
+                    
+                <TextView
+                    android:id="@+id/header_last_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_marginTop="12dp"
+                    android:textSize="14sp"
+                    tools:text="Last checked: 2025-01-01" />
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -117,8 +107,7 @@
             android:clipToPadding="false"
             android:paddingBottom="5dp"
             android:scrollbars="vertical"
-            android:layout_gravity="end"
-            tools:listitem="@layout/update_item_view"/>
+            tools:listitem="@layout/update_item_view" />
 
         <ProgressBar
             android:id="@+id/refresh_progress"
@@ -126,7 +115,42 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"/>
-
+            android:visibility="gone" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/refresh"
+            android:layout_width="300dp"
+            android:layout_height="85dp"
+            android:text="@string/menu_refresh"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:backgroundTint="?android:attr/colorAccent"
+            app:iconTint="?android:attr/textColorPrimaryInverse"
+            app:iconGravity="textStart"
+            app:icon="@drawable/ic_menu_refresh"
+            app:cornerRadius="100dp"
+            style="@style/Widget.MaterialComponents.Button" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/preferences"
+            android:layout_width="300dp"
+            android:layout_height="85dp"
+            android:text="@string/menu_preferences"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            app:backgroundTint="?android:attr/colorAccent"
+            app:iconTint="?android:attr/textColorPrimaryInverse"
+            app:iconGravity="textStart"
+            app:icon="@drawable/ic_menu_preferences"
+            app:cornerRadius="100dp"
+            style="@style/Widget.MaterialComponents.Button" />
+    </LinearLayout>
+
 </LinearLayout>
