@@ -85,6 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@*android:string/config_bodyFontFamily"
                     android:text="@string/no_updates_text"
                     android:textColor="?android:textColorSecondary" />
                     
@@ -93,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="?android:attr/textColorSecondary"
+                    android:fontFamily="@*android:string/config_bodyFontFamily"
                     android:layout_marginTop="12dp"
                     android:textSize="14sp"
                     tools:text="Last checked: 2025-01-01" />
@@ -132,6 +134,7 @@
             android:layout_height="85dp"
             android:text="@string/menu_refresh"
             android:textColor="?android:attr/textColorPrimaryInverse"
+            android:fontFamily="@*android:string/config_bodyFontFamily"
             app:backgroundTint="?android:attr/colorAccent"
             app:iconTint="?android:attr/textColorPrimaryInverse"
             app:iconGravity="textStart"
@@ -145,6 +148,7 @@
             android:layout_height="85dp"
             android:text="@string/menu_preferences"
             android:textColor="?android:attr/textColorPrimaryInverse"
+            android:fontFamily="@*android:string/config_bodyFontFamily"
             app:backgroundTint="?android:attr/colorAccent"
             app:iconTint="?android:attr/textColorPrimaryInverse"
             app:iconGravity="textStart"
