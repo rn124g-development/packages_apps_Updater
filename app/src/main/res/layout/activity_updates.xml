@@ -52,6 +52,32 @@
         </LinearLayout>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/preferences"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_preferences"
+            android:tint="?android:attr/textColorPrimary"
+            android:padding="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"/>
+
+        <ImageView
+            android:id="@+id/changelog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_changelog"
+            android:tint="?android:attr/textColorPrimary"
+            android:padding="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@id/preferences"/>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/updates_container"
@@ -82,12 +108,14 @@
                     android:src="@drawable/no_updates_1" />
 
                 <com.pixelproject.updater.RandomTextView
+                    android:id="@+id/random_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="@*android:string/config_bodyFontFamily"
                     android:text="@string/no_updates_text"
-                    android:textColor="?android:textColorSecondary" />
+                    android:textSize="22sp"
+                    android:textColor="?android:textColorPrimary" />
                     
                 <TextView
                     android:id="@+id/header_last_check"
@@ -96,7 +124,7 @@
                     android:textColor="?android:attr/textColorSecondary"
                     android:fontFamily="@*android:string/config_bodyFontFamily"
                     android:layout_marginTop="12dp"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="Last checked: 2025-01-01" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
@@ -143,16 +171,16 @@
             style="@style/Widget.MaterialComponents.Button" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/preferences"
+            android:id="@+id/import_local"
             android:layout_width="300dp"
             android:layout_height="85dp"
-            android:text="@string/menu_preferences"
+            android:text="@string/local_update_import"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:fontFamily="@*android:string/config_bodyFontFamily"
             app:backgroundTint="?android:attr/colorAccent"
             app:iconTint="?android:attr/textColorPrimaryInverse"
             app:iconGravity="textStart"
-            app:icon="@drawable/ic_menu_preferences"
+            app:icon="@drawable/ic_system_update"
             app:cornerRadius="100dp"
             style="@style/Widget.MaterialComponents.Button" />
     </LinearLayout>

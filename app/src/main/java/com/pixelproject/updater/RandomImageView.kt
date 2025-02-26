@@ -34,6 +34,10 @@ class RandomImageView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        randomizeImage()
+    }
+    
+    fun randomizeImage() {
         setImageResource(images.random())
     }
 }

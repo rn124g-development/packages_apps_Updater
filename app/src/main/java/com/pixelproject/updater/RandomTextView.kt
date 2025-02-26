@@ -41,6 +41,10 @@ class RandomTextView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+        randomizeMessage()
+    }
+    
+    fun randomizeMessage() {
         text = messages.random()
     }
 }
