@@ -633,41 +633,57 @@ class UpdatesActivity : AppCompatActivity(), UpdateImporter.Callbacks {
 
     private fun setChangelogs(mShowChangelogs: TextView) {
         mShowChangelogs.visibility = View.VISIBLE
-        val changelogUrl: String = getChangelogURL(this)
+        val changelogUrl: String? = getChangelogURL(this)
 
-        // Use ExecutorService for background work
+        // Log the URL to check what is being used
+        Log.d(TAG, "Changelog URL: $changelogUrl")
+
+        if (changelogUrl.isNullOrEmpty()) {
+            Log.e(TAG, "Changelog URL is null or empty")
+            mShowChangelogs.text = "Failed to load changelogs"
+            return
+        }
+
         val executorService = Executors.newSingleThreadExecutor()
         executorService.execute {
-            val result: StringBuilder = StringBuilder()
+            val result = StringBuilder()
             try {
+                Log.d(TAG, "Attempting to fetch changelog from: $changelogUrl")  // Log before request
+
                 val url = URL(changelogUrl)
                 val connection = url.openConnection() as HttpURLConnection
                 connection.requestMethod = "GET"
                 connection.connectTimeout = 5000
                 connection.readTimeout = 5000
 
-                val reader = BufferedReader(InputStreamReader(connection.inputStream))
-                var line: String
-                while ((reader.readLine().also { line = it }) != null) {
-                    result.append(line).append("\n")
+                Log.d(TAG, "HTTP Response Code: ${connection.responseCode}")  // Log response code
+
+                if (connection.responseCode != HttpURLConnection.HTTP_OK) {
                 }
-                reader.close()
+
+                val reader = BufferedReader(InputStreamReader(connection.inputStream))
+                reader.useLines { lines -> lines.forEach { result.append(it).append("\n") } }
                 connection.disconnect()
 
-                // Update the UI on the main thread
+                // Update UI safely
                 runOnUiThread {
-                    val markwon = Markwon.create(this)
-                    markwon.setMarkdown(mShowChangelogs, result.toString())
-                }
+                    if (!isDestroyed) {
+                        val markwon = Markwon.create(this)
+                        markwon.setMarkdown(mShowChangelogs, result.toString())
+                    }
+            }
             } catch (e: Exception) {
-                Log.e(TAG, "Could not load changelog", e)
+                Log.e(TAG, "Could not load changelog from URL: $changelogUrl", e)  // Log URL in case of failure
                 runOnUiThread {
-                    val markwon = Markwon.create(this)
-                    markwon.setMarkdown(mShowChangelogs, "Failed to load changelogs")
+                    if (!isDestroyed) {
+                        val markwon = Markwon.create(this)
+                        markwon.setMarkdown(mShowChangelogs, "Failed to load changelogs")
+                    }
                 }
             }
         }
     }
+
 
     private fun updateLastCheckedString() {
         val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
