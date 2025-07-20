@@ -28,7 +28,7 @@
       {version} - Build version
       {device} - Device name
     -->
-    <string name="updater_server_url" translatable="false">https://downloads.sourceforge.net/project/tapas-aosp/PixelOS/15/update.json</string>
+    <string name="updater_server_url" translatable="false">https://downloads.sourceforge.net/project/tapas-aosp/PixelOS/16/update.json</string>
     <string name="changelog_url" translatable="false">https://raw.githubusercontent.com/rn124g-development/PixelOS/refs/heads/fifteen/changelog.md</string>
     <string name="certified_prop_url" translatable="false">https://downloads.sourceforge.net/project/tapas-aosp/PixelOS/15/certified_build_props.apk</string>
 
